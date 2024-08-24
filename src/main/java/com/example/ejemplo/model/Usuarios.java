@@ -7,6 +7,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -40,4 +42,21 @@ public class Usuarios {
 
     @Column
     private boolean estado;
+
+
+    //asociacion con la tabla roles many to many
+    //many to many genera una tabla intermedia
+    @JoinTable(
+            name = "usuarios_roles",//nombre de la tabla intermedia
+            joinColumns = @JoinColumn(name = "usuarios_id",
+            foreignKey = @ForeignKey(name = "FK_usuarios_roles_usuarios")
+            ),
+            inverseJoinColumns = @JoinColumn(name = "roles_id" ,
+            foreignKey = @ForeignKey(name = "FK_usuarios_roles_role")
+            )
+    )
+    @ManyToMany
+
+    private List<Role> roles = new ArrayList<>();
+
 }
