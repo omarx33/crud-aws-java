@@ -42,7 +42,7 @@ public class AuthMapper {
                 });
     }
 
-    private Usuarios signUpRequestToUser(SignUpRequest request){
+    public Usuarios signUpRequestToUser(SignUpRequest request){
     Usuarios usuario = modelMapper.map(request, Usuarios.class);
 // aqui se mapeaaba con userprofile del video, como no tengo lo asigno todo de 1
     return usuario;

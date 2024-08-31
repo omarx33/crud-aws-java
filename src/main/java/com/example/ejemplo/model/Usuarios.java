@@ -46,6 +46,7 @@ public class Usuarios {
 
     //asociacion con la tabla roles many to many
     //many to many genera una tabla intermedia
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "usuarios_roles",//nombre de la tabla intermedia
             joinColumns = @JoinColumn(name = "usuarios_id",
@@ -55,7 +56,7 @@ public class Usuarios {
             foreignKey = @ForeignKey(name = "FK_usuarios_roles_role")
             )
     )
-    @ManyToMany
+
 
     private List<Role> roles = new ArrayList<>();
 

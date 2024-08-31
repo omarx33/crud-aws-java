@@ -16,8 +16,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
-@EnableWebSecurity
-@EnableMethodSecurity
+@EnableWebSecurity //habilita la seguridad web
+@EnableMethodSecurity //habilita la seguridad de los metodos en el controlador (permisos usuario)
 @RequiredArgsConstructor
 public class SecurityConfig {
 
@@ -38,6 +38,7 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                 .authorizeHttpRequests((authz) -> authz
+                     //   .requestMatchers("/usuarios").permitAll()
                         .requestMatchers("/auth/signup", "/auth/signin").permitAll() // Permitir sin autenticación
                         .requestMatchers("/api/v1/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**", "/webjars/**").permitAll() // Incluir rutas adicionales
                         .anyRequest().authenticated() // Cualquier otra solicitud requiere autenticación
