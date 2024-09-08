@@ -31,11 +31,12 @@ public class DormitoriosImpl implements DormitoriosService {
     @Transactional
     @Override
     public DormitoriosResponse createDormitorio(DormitoriosRequest request) {
-
-        Optional<Dormitorios> dormitorios = dormitoriosRepository.findByPisoAndNumero(request.getPiso(), request.getNumero());
-        if (dormitorios.isPresent()){
-            throw new AssignmentAlreadyExistsException("Dormitorio ya existe con el piso y numero " + request.getPiso() + " " + request.getNumero());
-        }
+    //aqui se ase prueba unitaria en test
+        Dormitorios dormitorios = dormitoriosRepository.findByPisoAndNumero(request.getPiso(), request.getNumero())
+                .orElseThrow(() -> new AssignmentAlreadyExistsException("Dormitorio ya existe con el piso y numero " + request.getPiso() + " " + request.getNumero()));
+//        if (dormitorios.isPresent()){
+//            throw new AssignmentAlreadyExistsException("Dormitorio ya existe con el piso y numero " + request.getPiso() + " " + request.getNumero());
+//        }
 
         Dormitorios dormitorio = dormitoriosMapper.dormitoriosRequestToDormitorios(request);
         dormitorio = dormitoriosRepository.save(dormitorio);

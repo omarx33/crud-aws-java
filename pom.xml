@@ -99,6 +99,11 @@
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
             <version>2.0.3</version>
         </dependency>
+<!--   (no es obligatorio)   para el test sirve para leer las fechas (localdate,now())si se quiere detectar y aplicar en el test response y request del archivo test  -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+        </dependency>
 
     </dependencies>
 
