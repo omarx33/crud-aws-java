@@ -32,11 +32,10 @@ public class DormitoriosImpl implements DormitoriosService {
     @Override
     public DormitoriosResponse createDormitorio(DormitoriosRequest request) {
     //aqui se ase prueba unitaria en test
-        Dormitorios dormitorios = dormitoriosRepository.findByPisoAndNumero(request.getPiso(), request.getNumero())
-                .orElseThrow(() -> new AssignmentAlreadyExistsException("Dormitorio ya existe con el piso y numero " + request.getPiso() + " " + request.getNumero()));
-//        if (dormitorios.isPresent()){
-//            throw new AssignmentAlreadyExistsException("Dormitorio ya existe con el piso y numero " + request.getPiso() + " " + request.getNumero());
-//        }
+        Optional<Dormitorios> dormitorios = dormitoriosRepository.findByPisoAndNumero(request.getPiso(), request.getNumero());
+        if (dormitorios.isPresent()){
+            throw new AssignmentAlreadyExistsException("Dormitorio ya existe con el piso y numero " + request.getPiso() + " " + request.getNumero());
+        }
 
         Dormitorios dormitorio = dormitoriosMapper.dormitoriosRequestToDormitorios(request);
         dormitorio = dormitoriosRepository.save(dormitorio);

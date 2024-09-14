@@ -16,7 +16,7 @@ import java.util.List;
 @Configuration
 public class OpenAPIConfig {
 
-    @Value("${ejemplo.openapi.dev-url}") //viene de properties
+    @Value("${ejemplo.openapi.prod-url}") //viene de properties
     private String devUrl;
 
     @Bean
