@@ -5,7 +5,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  build: #ejecución
     runs-on: ubuntu-latest
 
     steps:
@@ -24,3 +24,14 @@ jobs:
        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/dormirios-rest . #nombre de la imagen. el punto es porque se pone en raiz
      - name: Push Docker image #subir la imagen a docker hub
        run: docker push ${{ secrets.DOCKER_USERNAME }}/dormirios-rest
+  deploy: #despliegue
+    needs: build
+    runs-on: self-hosted #correr en un servidor propio antes de desplegar (min 1:48 sesion 10)
+    steps:
+     - name: pull image a docker hub #descargar la imagen de docker hub
+       run: docker pull ${{ secrets.DOCKER_USERNAME }}/dormirios-rest:latest
+     - name: remove esisting container #eliminar el contenedor existente
+       run: docker rm -f dormirios-rest
+     - name: Run container #correr el contenedor
+       run: docker run -d -p 80:8080 --name dormirios-rest ${{ secrets.DOCKER_USERNAME }}/dormirios-rest:latest #el server esta en el externo 80, internamente en el 8080
+
